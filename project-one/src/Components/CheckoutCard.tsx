@@ -9,8 +9,8 @@ export default function CheckoutCard({
     <div className="checkout-card">
       <img src={image} alt={name} />
       <h2>{name}</h2>
-      <p>${price}</p>
-      <p>{itemQuantity}</p>
+      <p>Price: ${price}</p>
+      <p>Quantity: {itemQuantity}</p>
       <p>subtotal: ${(price * itemQuantity).toFixed(2)}</p>
     </div>
   );
