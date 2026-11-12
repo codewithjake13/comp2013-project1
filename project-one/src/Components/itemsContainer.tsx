@@ -1,13 +1,22 @@
 import ItemCard from "./itemCard";
 import type { ClothingProduct } from "../data/data";
+
 interface ItemsContainerProps {
   products: ClothingProduct[];
+  handleQuantityChange: (id: number, delta: number) => void;
 }
-export default function ItemsContainerProps({ products }: ItemsContainerProps) {
+export default function ItemsContainerProps({
+  products,
+  handleQuantityChange,
+}: ItemsContainerProps) {
   return (
     <div className="items-container">
       {products.map((product) => (
-        <ItemCard key={product.id} {...product} />
+        <ItemCard
+          key={product.id}
+          {...product}
+          handleQuantityChange={handleQuantityChange}
+        />
       ))}
     </div>
   );
