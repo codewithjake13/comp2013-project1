@@ -64,10 +64,40 @@ export default function ThriftHappens() {
     );
   }
 
+  function handleRemoveFromCart(id: number) {
+    const itemInCart = cartItems.find((cartItem) => cartItem.id === id);
+    if (!itemInCart) return;
+
+    const amount = itemInCart.itemQuantity;
+
+    setCart((prevCart) => prevCart.filter((cartItem) => cartItem.id !== id));
+
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + amount } : item,
+      ),
+    );
+  }
+  function handleEmptyCheckout() {
+    setItems((prevItems) =>
+      prevItems.map((item) => {
+        const cartItem = cartItems.find((cart) => cart.id === item.id);
+        return cartItem
+          ? { ...item, quantity: item.quantity + cartItem.itemQuantity }
+          : item;
+      }),
+    );
+
+    setCart([]);
+  }
   return (
     <div>
       <NavBar />
-      <CheckoutContainer cartItems={cartItems} />
+      <CheckoutContainer
+        cartItems={cartItems}
+        handleRemoveFromCart={handleRemoveFromCart}
+        handleEmptyCheckout={handleEmptyCheckout}
+      />
 
       <ItemsContainer
         products={items}
